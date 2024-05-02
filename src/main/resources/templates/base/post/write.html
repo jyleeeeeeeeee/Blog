@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="post" th:fragment="post">
+    <link rel="stylesheet" href="/css/toastui-editor.min.css"/>
+    <script src="/js/toastui-editor-all.min.js"></script>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <!-- 버튼 영역 CSS -->
+    <style>
+        #btnDiv {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btns {
+            display: inline-block;
+            padding: 0 10px;
+            height: 48px;
+            line-height: 26px;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            font-weight: 500;
+            font-size: 24px;
+        }
+
+        .btns.save {
+            background: #139dc8;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btns.back {
+            background: #fff;
+            border: 1px solid #199bc4;
+            color: #199bc4;
+        }
+
+        #title {
+            width: 100%;
+            font-size: 48px;
+            margin: 10px 0 10px 0;
+            border: 2px solid lightgray;
+        }
+    </style>
+    <div>
+        <label for="title"></label><input id="title" type="text" placeholder="제목을 입력해주세요"/>
+    </div>
+    <div id="editor"></div>
+    <div id="btnDiv">
+        <button type="button" class="btns save" onclick="savePost();">저장하기</button>
+        <button type="button" class="btns back" onclick="history.back();">뒤로 가기</button>
+    </div>
+    <script>
+        const editor = new toastui.Editor({
+            el: document.querySelector('#editor'),
+            previewStyle: 'vertical',
+            height: '500px',
+            initialValue: "",
+            placeholder: "내용을 입력해주세요.",
+            hooks: {
+                async addImageBlobHook(blob, callback) {
+                    try {
+                        // 이미지 업로드 로직 커스텀
+                        // 에디터에 업로드한 이미지를 FormData 객체에 저장
+                        const formData = new FormData();
+                        formData.append("image", blob);
+
+                        // 2. FileApiController - uploadEditorImage 메서드 호출
+                        const response = await fetch('/tui-editor/image-upload', {
+                            method: 'POST',
+                            body: formData,
+                        });
+
+                        // 3. 컨트롤러에서 전달받은 디스크에 저장된 파일명
+                        const filename = await response.text();
+                        console.log('서버에 저장된 파일명 : ', filename);
+
+                        // 4. addImageBlobHook의 callback 함수를 통해, 디스크에 저장된 이미지를 에디터에 렌더링
+                        const imageUrl = `/tui-editor/image-print?filename=${filename}`;
+                        callback(imageUrl, blob.name);
+
+
+                        // jQuery ajax
+                        /*
+                        $.ajax({
+                            type: 'post',           // 타입 (get, post, put 등등)
+                            url: '/tui-editor/image-upload',           // 요청할 서버 url
+                            async: true,            // 비동기화 여부 (default : true)
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function (result) { // 결과 성공 콜백함수
+                                console.log(result);
+                            },
+                            error: function (request, status, error) {
+                                // 결과 에러 콜백함수
+                                console.log(error)
+                            }
+                        });
+                        */
+                    } catch (error) {
+                        console.error('업로드 실패 : ', error);
+                    }
+                }
+            }
+        });
+
+        // 게시글 저장
+        async function savePost() {
+            // 1. 콘텐츠 입력 유효성 검사
+            const title = document.getElementById("title").value;
+            if(title.length < 1) {
+                alert('제목을 입력해 주세요.');
+                throw new Error('title is required!');
+            }
+            if (editor.getMarkdown().length < 1) {
+                alert('에디터 내용을 입력해 주세요.');
+                throw new Error('editor content is required!');
+            }
+
+            // 2. url, parameter 세팅
+            const url = '/api/posts';
+            const params = {
+                title: title,
+                content: editor.getHTML(),
+            }
+
+            // 3. API 호출
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(params),
+                });
+
+                const postId = await response.json();
+                alert(postId + '번 게시글이 저장되었습니다.');
+                location.href = '/post/' + postId;
+
+            } catch (error) {
+                console.error('저장 실패 : ', error)
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

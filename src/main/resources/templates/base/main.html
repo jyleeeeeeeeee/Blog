@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{base/head :: head(${title})}">
+    <meta charset="UTF-8">
+    <title>main</title>
+</head>
+<body id="wrapper" style="position: fixed; height: -webkit-fill-available; width: -webkit-fill-available;">
+    <aside th:replace="~{base/aside}"></aside>
+    <div style="background-color: white; display: inline-block; position: absolute;
+        overflow:auto; width: -webkit-fill-available; height: -webkit-fill-available;">
+        <header th:replace="~{base/header :: header}"></header>
+        <section th:replace="~{base/section :: section}"></section>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>header</title>
+</head>
+<body>
+<header th:fragment="header" style="background-color: white;
+    display: inline-block; position: relative; width: 100%;">
+    <nav th:replace="~{base/nav :: nav}"></nav>
+</header>
+</body>
+</html>

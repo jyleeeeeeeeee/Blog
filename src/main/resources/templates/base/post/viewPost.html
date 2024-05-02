@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>viewPost</title>
+</head>
+<body>
+<div id="post_wrapper" th:fragment="post_wrapper">
+    <div id="title">
+        <span style="width: 100%; font-size: 48px; margin: 10px 0 10px 0;" th:text="${post.title}"/>
+    </div>
+    <div>
+        <div id="content" th:utext="${post.content}">
+        </div>
+    </div>
+</div>
+</body>
+</html>

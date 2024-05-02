@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <style>
+        button {
+            width: 125px;
+            height: 40px;
+            border-radius: 5px;
+            border: none;
+            background-color: dodgerblue;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center;">
+    <h2>404 오류 화면 스프링 부트 제공</h2>
+    <img style="display: inline-block;"
+         src="/image/404page.jpg" alt="" width="600px">
+    <div style="margin-top: -108px;">
+        <button value="뒤로가기" onclick="history.back()" style="cursor: pointer;">이전 화면</button>
+        <button value="HOME" onclick="location.href='/'" style="cursor: pointer;">홈으로 가기</button>
+    </div>
+</div>
+</div> <!-- /container -->
+</body>
+</html>

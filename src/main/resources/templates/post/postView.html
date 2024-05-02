@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>viewPost</title>
+</head>
+<body>
+<div id="post_wrapper" th:fragment="post_wrapper">
+    <style>
+
+        #btnDiv {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btns {
+            display: inline-block;
+            padding: 0 10px;
+            height: 48px;
+            line-height: 26px;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            font-weight: 500;
+            font-size: 24px;
+        }
+
+        .btns.sky {
+            background: #139dc8;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btns.white {
+            background: #fff;
+            color: #199bc4;
+        }
+
+        p { word-break: break-all}
+        img { width: -webkit-fill-available}
+    </style>
+    <div id="title"
+         style="width: 100%; font-size: 48px; margin: 10px 0 10px 0;" th:text="${post.title}"></div>
+    <hr>
+    <div>
+        <div id="content" th:utext="${post.content}">
+        </div>
+    </div>
+
+    <div id="btnDiv">
+        <button type="button" class="btns white" onclick="savePost();">◀︎</button>
+        <button type="button" class="btns white" onclick="savePost();">목록으로</button>
+        <button type="button" class="btns white" onclick="history.back();">▶︎</button>
+    </div>
+</div>
+</body>
+</html>

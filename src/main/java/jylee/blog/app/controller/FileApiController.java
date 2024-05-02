@@ -1,5 +1,6 @@
 package jylee.blog.app.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,9 +14,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/tui-editor")
 public class FileApiController {
-
     // 파일 업로드 디렉터리 경로
-    private final String uploadDir = Paths.get("D:", "blog", "upload").toString();
+    @Value("${uploadDir}")
+    private String uploadDir;
+//    private final String uploadDir = Paths.get("D:", "blog", "upload").toString();
 
     /**
      * @param image 파일 객체

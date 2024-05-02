@@ -18,7 +18,7 @@ public class BlogApplication {
 
     @PostConstruct
     public void init() {
-        Post post = new Post(new PostRequest("1번 게시글 제목","<p>zxcvzxcv</p>"));
+        Post post = new Post(new PostRequest("1번 게시글 제목","<p>저장 테스트입니다.</p><p><br></p><p>ㅋㅋ</p><p><br></p><p>ㄴㅇㄹㅁㄴㅇㄹ</p><p>ㄴㅁㅇㄹㄴㅁㅇㄹ</p><p><br></p><p>ㅁㄴㅇㄹㄴㅁㅇㄹ</p><p><br></p><p><img src=\"/tui-editor/image-print?filename=64eec421-dbf6-487a-a666-474da9ccba4a.jpeg\" alt=\"DSC_1663.jpeg\" contenteditable=\"false\"><br></p><p><br></p><p>ㅁㄴㅇㄹㄴㅁㅇㄹ</p>"));
         postRepository.save(post);
     }
 

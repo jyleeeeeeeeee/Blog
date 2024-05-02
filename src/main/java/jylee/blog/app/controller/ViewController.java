@@ -32,15 +32,15 @@ public class ViewController {
     @GetMapping("/aboutme")
     public String aboutMe(Model model) {
         model.addAttribute("title", "About Me");
-        model.addAttribute("view", "base/aboutme");
-        model.addAttribute("fragment", "aboutme");
+        model.addAttribute("view", "base/aboutMe");
+        model.addAttribute("fragment", "aboutMe");
         return "base/main";
     }
 
     @GetMapping("/write")
     public String post(Model model) {
         model.addAttribute("title", "post");
-        model.addAttribute("view", "base/post/write");
+        model.addAttribute("view", "post/postWrite");
         model.addAttribute("fragment", "post");
         return "base/main";
     }
@@ -50,7 +50,7 @@ public class ViewController {
         List<PostResponse> postList = postService.findAllPost();
         model.addAttribute("postList", postList);
         model.addAttribute("title", "post");
-        model.addAttribute("view", "base/post/postList");
+        model.addAttribute("view", "post/postList");
         model.addAttribute("fragment", "post");
         return "base/main";
     }
@@ -60,7 +60,7 @@ public class ViewController {
         PostResponse postResponse = postService.findById(id);
         model.addAttribute("post", postResponse);
         model.addAttribute("title", "post_wrapper");
-        model.addAttribute("view", "base/post/viewPost");
+        model.addAttribute("view", "post/postView");
         model.addAttribute("fragment", "post_wrapper");
         return "base/main";
     }

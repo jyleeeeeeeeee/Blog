@@ -1,3 +1,4 @@
+uploadDir: /Users/jylee/IdeaProjects/Blog/upload
 spring:
   servlet:
     multipart:

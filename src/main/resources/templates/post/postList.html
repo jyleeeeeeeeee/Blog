@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="post">
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        a:hover {
+            cursor:pointer;
+        }
+    </style>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="width: 100px;">번호</th>
+            <th>제목</th>
+        </tr>
+        <a href="/write">작성</a>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${postList}">
+            <td style="text-align: center;"><span th:text="${postStat.index + 1}"/></td>
+            <td><a th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}"></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

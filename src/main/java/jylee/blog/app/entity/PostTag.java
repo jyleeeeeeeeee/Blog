@@ -30,4 +30,13 @@ public class PostTag {
         this.tag = tag;
         this.post = post;
     }
+
+    @Override
+    public String toString() {
+        return "PostTag{" +
+                "id=" + id + '\'' +
+                ", post=" + post + '\'' +
+                ", tag=" + tag + '\n' +
+                '}';
+    }
 }

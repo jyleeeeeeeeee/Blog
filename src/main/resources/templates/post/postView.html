@@ -25,6 +25,7 @@
             font-weight: 500;
             font-size: 24px;
         }
+
         .btns2 {
             display: inline-block;
             padding: 48px 5px 0 5px;
@@ -40,12 +41,31 @@
             color: #67adc3;
         }
 
-        p { word-break: break-all}
-        img { width: -webkit-fill-available}
+        p {
+            word-break: break-all
+        }
+
+        img {
+            width: -webkit-fill-available
+        }
+
+        .new-tag {
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 4px 8px 4px 8px;
+            border: 2px solid #139dc8;
+            margin-right: 10px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .new-tag:hover {
+            background-color: #139dc8;
+            color: white;
+        }
     </style>
     <script>
         async function deletePost(id) {
-            if(confirm("삭제하시겠습니까?")) {
+            if (confirm("삭제하시겠습니까?")) {
                 try {
                     let response = await fetch("/api/post/" + id, {
                         method: 'DELETE',
@@ -57,14 +77,22 @@
                 location.href = "/post/list";
             }
         }
+
     </script>
     <div id="title">
         <span th:text="${post.title}"
-              style="width: 100%; font-size: 48px; margin: 10px 0 10px 0;" ></span>
+              style="width: 100%; font-size: 48px; margin: 10px 0 10px 0;"></span>
         <button style="color: #db9494;" type="button" class="btns2 white"
-                th:onclick="deletePost([[${post.id}]])">삭제</button>
+                th:onclick="deletePost([[${post.id}]])">삭제
+        </button>
         <button style="color: #67adc3;" type="button" class="btns2 white"
-                th:onclick="|location.href='@{/post/{id}/edit(id=${post.id})}'|">수정</button>
+                th:onclick="|location.href='@{/post/{id}/edit(id=${post.id})}'|">수정
+        </button>
+    </div>
+    <div style="display: inline-block; padding-top: 4px;">
+        <th:block th:each="postTag : ${post.postTags}">
+            <span class="new-tag" th:text="${postTag.tag.content}"></span>
+        </th:block>
     </div>
     <hr>
     <div>
@@ -74,7 +102,8 @@
 
     <div id="btnDiv">
         <button type="button" class="btns white" onclick="savePost();">◀︎</button>
-        <button type="button" class="btns white" onclick="savePost();">목록으로</button>
+        <button type="button" class="btns white" onclick="location.href='/post/list'">목록으로</button>
+        <button value="HOME" onclick="location.href='/'" style="cursor: pointer;">홈으로 가기</button>
         <button type="button" class="btns white" onclick="history.back();">▶︎</button>
     </div>
 </div>

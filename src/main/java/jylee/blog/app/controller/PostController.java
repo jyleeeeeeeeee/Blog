@@ -20,7 +20,7 @@ public class PostController {
     @Autowired
     private final PostService postService;
 
-    @GetMapping("/list")
+    @GetMapping
     public String list(Model model) {
         List<PostResponse> postList = postService.findAllPost();
         model.addAttribute("postList", postList);
@@ -30,7 +30,7 @@ public class PostController {
         return "base/main";
     }
 
-    @GetMapping("/write")
+    @GetMapping("/new")
     public String write(Model model) {
         model.addAttribute("title", "post");
         model.addAttribute("view", "post/postWrite");
@@ -45,6 +45,16 @@ public class PostController {
         model.addAttribute("title", "post_wrapper");
         model.addAttribute("view", "post/postView");
         model.addAttribute("fragment", "post_wrapper");
+        return "base/main";
+    }
+
+    @GetMapping("/tag/{id}")
+    public String viewByTagId(Model model, @PathVariable("id") Long id) {
+        List<PostResponse> postList = postService.findPostAllByTagId(id);
+        model.addAttribute("postList", postList);
+        model.addAttribute("title", "post");
+        model.addAttribute("view", "post/postList");
+        model.addAttribute("fragment", "post");
         return "base/main";
     }
 

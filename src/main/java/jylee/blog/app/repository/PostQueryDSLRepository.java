@@ -1,5 +1,11 @@
 package jylee.blog.app.repository;
 
-public class PostQueryDSLRepository {
-//    public boolean
+import jylee.blog.app.entity.Post;
+
+import java.util.List;
+
+public interface PostQueryDSLRepository {
+    Post findPostById(Long id);
+    List<Post> findPostAll();
+    List<Post> findPostAllByTagId(Long id);
 }

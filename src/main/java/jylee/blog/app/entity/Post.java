@@ -23,7 +23,7 @@ public class Post extends BaseEntity{
     @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String content;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostTag> postTags = new ArrayList<>();
 
 
@@ -38,7 +38,16 @@ public class Post extends BaseEntity{
         this.content = postResponse.getContent();
     }
 
-    public void setTagToPost(PostTag postTag) {
+    public void addPostTagsToPost(PostTag postTag) {
         this.postTags.add(postTag);
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\n' +
+                ", id=" + id + '\n' +
+                ", content='" + content + '\n' +
+                '}';
     }
 }

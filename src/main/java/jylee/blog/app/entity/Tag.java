@@ -5,9 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,14 +17,16 @@ public class Tag {
     private String content;
 
 
-    @OneToMany(mappedBy = "tag")
-    private List<PostTag> postTags = new ArrayList<>();
-
     public Tag(String content) {
         this.content = content;
     }
 
-    public void setPostToTag(PostTag postTag) {
-        this.postTags.add(postTag);
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id + + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

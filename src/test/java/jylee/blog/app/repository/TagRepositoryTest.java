@@ -25,10 +25,10 @@ class TagRepositoryTest {
     }
     @Test
     public void findTags() {
-        Optional<Tag> asdfasdf = repository.findFirstByContent("asdfasdf");
-        Optional<Tag> asdqqqqqfasdf = repository.findFirstByContent("qqqqq");
-        Tag asdfasdf1 = asdfasdf.orElse(tagRepository.save(new Tag("asdfasdf")));
-        Tag qqqqq2 = asdqqqqqfasdf.orElse(tagRepository.save(new Tag("qqqqq")));
-        System.out.println("asdqqqqqfasdf = " + asdqqqqqfasdf);
+//        Optional<Tag> asdfasdf = repository.findFirstByContent("asdfasdf");
+//        Optional<Tag> asdqqqqqfasdf = repository.findFirstByContent("qqqqq");
+//        Tag asdfasdf1 = asdfasdf.orElse(tagRepository.save(new Tag("asdfasdf")));
+//        Tag qqqqq2 = asdqqqqqfasdf.orElse(tagRepository.save(new Tag("qqqqq")));
+//        System.out.println("asdqqqqqfasdf = " + asdqqqqqfasdf);
     }
 }

@@ -6,8 +6,35 @@
             text-decoration: none;
             color: black;
         }
+
         a:hover {
-            cursor:pointer;
+            cursor: pointer;
+        }
+
+        .new-tag {
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 4px 8px 4px 8px;
+            border: 2px solid #139dc8;
+            margin-right: 10px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .new-tag:hover {
+            background-color: #139dc8;
+            color: white;
+        }
+
+        #new_post {
+            padding: 5px 10px 5px 10px;
+            color: #67adc3;
+            border: 2px solid #67adc3;
+            border-radius: 20px;
+        }
+        #new_post:hover {
+            background-color: #67adc3;
+            color: white;
         }
     </style>
     <table class="table table-striped">
@@ -15,14 +42,25 @@
         <tr>
             <th style="width: 100px;">번호</th>
             <th>제목</th>
-            <th style="text-align: right;"><a style="padding: 5px 10px 5px 10px; color: #67adc3; border: 2px solid #67adc3;" href="/post/write">작성</a></th>
+            <th style="text-align: right;"><a id="new_post" href="/post/new">작성</a></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${postList.size} == 0"><td colspan="3" style="text-align: center;">데이터가 없습니다.</td> </tr>
+        <tr th:if="${postList.size} == 0">
+            <td colspan="3" style="text-align: center;">데이터가 없습니다.</td>
+        </tr>
         <tr th:if="${postList.size} != 0" th:each="post : ${postList}">
             <td style="text-align: center; "><span th:text="${postStat.index + 1}"/></td>
-            <td colspan="2"><a style="display: inline-block; width: 100%;" th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}"></a></td>
+            <td colspan="2">
+                <a style="display: inline-block; width: 100%;"
+                   th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}"></a>
+                <div style="display: inline-block; padding-top: 4px;">
+                    <th:block th:each="postTag : ${post.postTags}">
+                        <span class="new-tag" th:text="${postTag.tag.content}"
+                              th:onclick="|location.href='@{/post/tag/{id}(id=${postTag.tag.id})}'|"></span>
+                    </th:block>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>

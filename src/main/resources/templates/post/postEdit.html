@@ -47,9 +47,41 @@
             margin: 10px 0 10px 0;
             border: 2px solid lightgray;
         }
+
+        .new-tag {
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 4px 8px 4px 8px;
+            border: 2px solid #139dc8;
+            margin-right: 10px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .new-tag:hover {
+            background-color: #139dc8;
+            color: white;
+        }
+        .manual-text {
+            margin: 5px 10px 5px 10px;
+            font-size: 12px;
+        }
     </style>
     <div>
         <label for="title"></label><input id="title" type="text" placeholder="제목을 입력해주세요"/>
+    </div>
+    <div style="padding: 10px 0 20px 0;">
+
+        <div id="tags" style="display: inline-block;">
+            <th:block th:each="postTag : ${post.postTags}">
+                <span class="new-tag" th:text="${postTag.tag.content}" onclick="this.remove()"></span>
+            </th:block>
+        </div>
+        <label for="tag-input"></label>
+        <input id="tag-input" style="outline: none; border: none;" placeholder="태그를 입력하세요" value="">
+        <div id="tag-manual" style=" background: #888888; margin-top: 10px; color: white; display: none; position: absolute; z-index: 1;">
+            <p class="manual-text">태그 추가 : 입력 후 Enter</p>
+            <p class="manual-text">태그 삭제 : 태그를 클릭하거나 내용이 없을 때 백스페이스 입력</p>
+        </div>
     </div>
     <div id="editor"></div>
     <div id="btnDiv">

@@ -25,17 +25,14 @@
             font-weight: 500;
             font-size: 24px;
         }
-        .btns2 {
-            display: inline-block;
-            padding: 48px 5px 0 5px;
-            border-radius: 3px;
-            border: 1px solid transparent;
-            font-weight: 500;
-            float: right;
-            background-color: white;
+
+        .btns.sky {
+            background: #139dc8;
+            color: #fff;
+            cursor: pointer;
         }
 
-        .white {
+        .btns.white {
             background: #fff;
             color: #67adc3;
         }
@@ -43,29 +40,8 @@
         p { word-break: break-all}
         img { width: -webkit-fill-available}
     </style>
-    <script>
-        async function deletePost(id) {
-            if(confirm("삭제하시겠습니까?")) {
-                try {
-                    let response = await fetch("/api/post/" + id, {
-                        method: 'DELETE',
-                    });
-                } catch (e) {
-                    console.error('삭제 실패 : ', e)
-                }
-
-                location.href = "/post/list";
-            }
-        }
-    </script>
-    <div id="title">
-        <span th:text="${post.title}"
-              style="width: 100%; font-size: 48px; margin: 10px 0 10px 0;" ></span>
-        <button style="color: #db9494;" type="button" class="btns2 white"
-                th:onclick="deletePost([[${post.id}]])">삭제</button>
-        <button style="color: #67adc3;" type="button" class="btns2 white"
-                th:onclick="|location.href='@{/post/{id}/edit(id=${post.id})}'|">수정</button>
-    </div>
+    <div id="title"
+         style="width: 100%; font-size: 48px; margin: 10px 0 10px 0;" th:text="${post.title}"></div>
     <hr>
     <div>
         <div id="content" th:utext="${post.content}">

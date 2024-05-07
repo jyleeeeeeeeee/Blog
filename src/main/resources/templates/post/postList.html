@@ -15,13 +15,14 @@
         <tr>
             <th style="width: 100px;">번호</th>
             <th>제목</th>
+            <th style="text-align: right;"><a style="padding: 5px 10px 5px 10px; color: #67adc3; border: 2px solid #67adc3;" href="/post/write">작성</a></th>
         </tr>
-        <a href="/write">작성</a>
         </thead>
         <tbody>
-        <tr th:each="post : ${postList}">
-            <td style="text-align: center;"><span th:text="${postStat.index + 1}"/></td>
-            <td><a th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}"></a></td>
+        <tr th:if="${postList.size} == 0"><td colspan="3" style="text-align: center;">데이터가 없습니다.</td> </tr>
+        <tr th:if="${postList.size} != 0" th:each="post : ${postList}">
+            <td style="text-align: center; "><span th:text="${postStat.index + 1}"/></td>
+            <td colspan="2"><a style="display: inline-block; width: 100%;" th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}"></a></td>
         </tr>
         </tbody>
     </table>

@@ -27,5 +27,5 @@ spring:
 #        show_sql: true
 logging.level:
   org.hibernate.SQL: debug
-  orm.jdbc.bind: trace #??? ?? 3.x, hibernate6
+#  orm.jdbc.bind: trace #??? ?? 3.x, hibernate6
 # org.hibernate.type: trace

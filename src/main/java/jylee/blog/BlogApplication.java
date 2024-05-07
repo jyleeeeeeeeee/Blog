@@ -1,25 +1,26 @@
 package jylee.blog;
 
-import jakarta.annotation.PostConstruct;
-import jylee.blog.app.dto.PostRequest;
-import jylee.blog.app.entity.Post;
-import jylee.blog.app.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @SpringBootApplication
 @RequiredArgsConstructor
+@EnableJpaAuditing
 public class BlogApplication {
-    private final PostRepository postRepository;
     public static void main(String[] args) {
         SpringApplication.run(BlogApplication.class, args);
     }
 
-    @PostConstruct
-    public void init() {
-        Post post = new Post(new PostRequest("1번 게시글 제목","<p>저장 테스트입니다.</p><p><br></p><p>ㅋㅋ</p><p><br></p><p>ㄴㅇㄹㅁㄴㅇㄹ</p><p>ㄴㅁㅇㄹㄴㅁㅇㄹ</p><p><br></p><p>ㅁㄴㅇㄹㄴㅁㅇㄹ</p><p><br></p><p><img src=\"/tui-editor/image-print?filename=64eec421-dbf6-487a-a666-474da9ccba4a.jpeg\" alt=\"DSC_1663.jpeg\" contenteditable=\"false\"><br></p><p><br></p><p>ㅁㄴㅇㄹㄴㅁㅇㄹ</p>"));
-        postRepository.save(post);
-    }
 
+    @Bean
+    public AuditorAware<String> auditorProvider() {
+        return () -> Optional.of(UUID.randomUUID().toString());
+    }
 }

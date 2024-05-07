@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div id="write" th:fragment="write">
+<div id="post" th:fragment="post">
     <link rel="stylesheet" href="/css/toastui-editor.min.css"/>
     <script src="/js/toastui-editor-all.min.js"></script>
     <script src="/js/jquery-3.7.1.min.js"></script>
@@ -47,32 +47,9 @@
             margin: 10px 0 10px 0;
             border: 2px solid lightgray;
         }
-
-        .new-tag {
-            cursor: pointer;
-            border-radius: 20px;
-            padding: 8px;
-            border: 2px solid #139dc8;
-            margin-right: 10px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        .manual-text {
-            margin: 5px 10px 5px 10px;
-            font-size: 12px;
-        }
     </style>
     <div>
         <label for="title"></label><input id="title" type="text" placeholder="제목을 입력해주세요"/>
-    </div>
-    <div style="padding: 10px 0 20px 0;">
-        <div id="tags" style="display: inline-block;"></div>
-        <label for="tag-input"></label>
-        <input id="tag-input" style="outline: none; border: none;" placeholder="태그를 입력하세요" value="">
-            <div id="tag-manual" style=" background: #888888; margin-top: 10px; color: white; display: none; position: absolute; z-index: 1;">
-                <p class="manual-text">태그 추가 : 입력 후 Enter</p>
-                <p class="manual-text">태그 삭제 : 내용이 없을 때 백스페이스 입력</p>
-            </div>
     </div>
     <div id="editor"></div>
     <div id="btnDiv">
@@ -138,7 +115,7 @@
         async function savePost() {
             // 1. 콘텐츠 입력 유효성 검사
             const title = document.getElementById("title").value;
-            if (title.length < 1) {
+            if(title.length < 1) {
                 alert('제목을 입력해 주세요.');
                 throw new Error('title is required!');
             }
@@ -148,18 +125,10 @@
             }
 
             // 2. url, parameter 세팅
-            const url = '/api/post';
-            const arr = [];
-            const tags = $(".new-tag");
-
-            for(let i = 0; i < tags.length; i++) {
-                arr.push($(tags[i]).text())
-            }
-
+            const url = '/api/posts';
             const params = {
                 title: title,
                 content: editor.getHTML(),
-                tags: arr
             }
 
             // 3. API 호출
@@ -173,37 +142,13 @@
                 });
 
                 const postId = await response.json();
-                alert('저장되었습니다.');
+                alert(postId + '번 게시글이 저장되었습니다.');
                 location.href = '/post/' + postId;
 
             } catch (error) {
                 console.error('저장 실패 : ', error)
             }
         }
-
-
-        let tagInput = $("#tag-input");
-        tagInput.on("focus", function () {
-            $("#tag-manual").fadeIn();
-        });
-        tagInput.on("blur", function () {
-            $("#tag-manual").fadeOut();
-        });
-        tagInput.on("keyup", function (key) {
-            if (key.keyCode === 13) {
-                const tag = tagInput.val();
-                if (tag.length > 0) {
-                    $("#tags").append("<span class='new-tag' onclick='this.remove()'>" + tag + "</span>")
-                }
-                tagInput.val("");
-            } else if (key.keyCode === 8) {
-                const tag = tagInput.val();
-                const tags = $("#tags");
-                if (tag.length === 0 && tags.children().length > 0) {
-                    tags.children().last().remove()
-                }
-            }
-        })
     </script>
 </div>
 </body>

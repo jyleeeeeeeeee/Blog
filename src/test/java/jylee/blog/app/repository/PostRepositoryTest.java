@@ -1,8 +1,6 @@
 package jylee.blog.app.repository;
 
-import jylee.blog.app.dto.PostRequest;
-import jylee.blog.app.entity.Post;
-import org.assertj.core.api.Assertions;
+import jylee.blog.app.repository.post.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

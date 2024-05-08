@@ -24,15 +24,9 @@ public class PostAPIController {
         return postService.findById(id);
     }
 
-    @GetMapping
-    public List<PostResponse> findAllPost() {
-        return postService.findAllPost();
-    }
-
     @PutMapping
-    public Long editPost(@RequestBody PostResponse postResponse) {
-        postService.editPost(postResponse);
-        return postResponse.getId();
+    public Long editPost(@RequestBody PostRequest postRequest) {
+        return postService.editPost(postRequest);
     }
 
     @DeleteMapping("/{id}")

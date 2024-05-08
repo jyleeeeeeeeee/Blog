@@ -12,7 +12,14 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class PostRequest {
+    private Long id;
     private String title;
     private String content;
     private List<Tag> tags;
+
+    public PostRequest(String title, String content, List<Tag> tags) {
+        this.title = title;
+        this.content = content;
+        this.tags = tags;
+    }
 }

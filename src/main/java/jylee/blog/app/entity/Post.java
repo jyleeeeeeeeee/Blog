@@ -3,6 +3,7 @@ package jylee.blog.app.entity;
 import jakarta.persistence.*;
 import jylee.blog.app.dto.PostRequest;
 import jylee.blog.app.dto.PostResponse;
+import jylee.blog.app.repository.post_tag.PostTagRepository;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Post extends BaseEntity{
     @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String content;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post")//, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostTag> postTags = new ArrayList<>();
 
 
@@ -33,13 +34,17 @@ public class Post extends BaseEntity{
 
     }
 
-    public void editPost(PostResponse postResponse) {
-        this.title = postResponse.getTitle();
-        this.content = postResponse.getContent();
+    public void editPost(PostRequest postRequest) {
+        this.title = postRequest.getTitle();
+        this.content = postRequest.getContent();
     }
 
     public void addPostTagsToPost(PostTag postTag) {
         this.postTags.add(postTag);
+    }
+
+    public void clearTags() {
+        this.postTags.clear();
     }
 
     @Override

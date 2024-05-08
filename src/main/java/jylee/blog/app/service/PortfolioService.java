@@ -3,7 +3,7 @@ package jylee.blog.app.service;
 import jylee.blog.app.dto.PostRequest;
 import jylee.blog.app.dto.PostResponse;
 import jylee.blog.app.entity.Post;
-import jylee.blog.app.repository.PostRepository;
+import jylee.blog.app.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

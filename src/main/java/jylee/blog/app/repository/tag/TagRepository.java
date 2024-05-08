@@ -1,4 +1,4 @@
-package jylee.blog.app.repository;
+package jylee.blog.app.repository.tag;
 
 
 import jylee.blog.app.entity.Tag;

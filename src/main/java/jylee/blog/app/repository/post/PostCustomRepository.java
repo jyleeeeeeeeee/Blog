@@ -1,11 +1,11 @@
-package jylee.blog.app.repository;
+package jylee.blog.app.repository.post;
 
 import jylee.blog.app.entity.Post;
 
 import java.util.List;
 
-public interface PostQueryDSLRepository {
-    Post findPostById(Long id);
+public interface PostCustomRepository {
+    Post findPostFetchById(Long id);
     List<Post> findPostAll();
     List<Post> findPostAllByTagId(Long id);
 }

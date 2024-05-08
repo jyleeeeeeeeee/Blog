@@ -1,14 +1,14 @@
 package jylee.blog.app.repository;
 
-import com.querydsl.core.Tuple;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceUnit;
 import jylee.blog.app.dto.PostRequest;
-import jylee.blog.app.dto.PostResponse;
 import jylee.blog.app.entity.*;
+import jylee.blog.app.repository.post.PostRepository;
+import jylee.blog.app.repository.post_tag.PostTagRepository;
+import jylee.blog.app.repository.tag.TagRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

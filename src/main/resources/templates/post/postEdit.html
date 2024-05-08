@@ -117,26 +117,6 @@
                         // 4. addImageBlobHook의 callback 함수를 통해, 디스크에 저장된 이미지를 에디터에 렌더링
                         const imageUrl = `/tui-editor/image-print?filename=${filename}`;
                         callback(imageUrl, blob.name);
-
-
-                        // jQuery ajax
-                        /*
-                        $.ajax({
-                            type: 'post',           // 타입 (get, post, put 등등)
-                            url: '/tui-editor/image-upload',           // 요청할 서버 url
-                            async: true,            // 비동기화 여부 (default : true)
-                            data: formData,
-                            contentType: false,
-                            processData: false,
-                            success: function (result) { // 결과 성공 콜백함수
-                                console.log(result);
-                            },
-                            error: function (request, status, error) {
-                                // 결과 에러 콜백함수
-                                console.log(error)
-                            }
-                        });
-                        */
                     } catch (error) {
                         console.error('업로드 실패 : ', error);
                     }
@@ -144,6 +124,7 @@
             }
         });
         editor.setHTML([[${post.content}]]);
+
         // 게시글 저장
         async function savePost() {
             // 1. 콘텐츠 입력 유효성 검사
@@ -159,10 +140,17 @@
 
             // 2. url, parameter 세팅
             const url = '/api/post';
+            const arr = [];
+            const tags = $(".new-tag");
+
+            for(let i = 0; i < tags.length; i++) {
+                arr.push($(tags[i]).text())
+            }
             const params = {
                 id : [[${post.id}]],
                 title: title,
                 content: editor.getHTML(),
+                tags: arr
             }
 
             // 3. API 호출
@@ -183,6 +171,32 @@
                 console.error('저장 실패 : ', error)
             }
         }
+
+
+        let tagInput = $("#tag-input");
+        tagInput.on("focus", function () {
+            $("#tag-manual").fadeIn();
+        });
+
+        tagInput.on("blur", function () {
+            $("#tag-manual").fadeOut();
+        });
+
+        tagInput.on("keydown", function (key) {
+            if (key.keyCode === 13) {
+                const tag = tagInput.val();
+                if (tag.length > 0) {
+                    $("#tags").append("<span class='new-tag' onclick='this.remove()'>" + tag + "</span>")
+                }
+                tagInput.val("");
+            } else if (key.keyCode === 8) {
+                const tag = tagInput.val();
+                const tags = $("#tags");
+                if (tag.length === 0 && tags.children().length > 0) {
+                    tags.children().last().remove()
+                }
+            }
+        })
     </script>
 </div>
 </body>

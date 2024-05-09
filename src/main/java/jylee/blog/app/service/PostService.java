@@ -9,6 +9,10 @@ import jylee.blog.app.repository.post.PostRepository;
 import jylee.blog.app.repository.post_tag.PostTagRepository;
 import jylee.blog.app.repository.tag.TagRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,9 +46,21 @@ public class PostService {
     }
 
     // 게시물 모두 조회
-    public List<PostResponse> findAllPost() {
-        return postRepository.findPostAll().stream().map(PostResponse::new).collect(Collectors.toList());
+    public Page<PostResponse> findAllPost(int page, int size, String sort) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size,
+                Sort.by(Sort.Direction.fromString(sort), "id"));
+        long offset = pageRequest.getOffset();
+
+        List<PostResponse> posts = postRepository.findPostAll(offset, size, sort).stream().map(PostResponse::new).collect(Collectors.toList());
+        long count = postRepository.count();
+        return new PageImpl<>(posts, pageRequest, count);
     }
+
+    // 게시물 모두 조회
+//    public Page<PostResponse> findAllPostPaging(PageRequest pageRequest) {
+//        List<PostResponse> collect = postRepository.findPostAll(pageRequest).stream().map(PostResponse::new).collect(Collectors.toList());
+//        return collect;
+//    }
 
     // 태그로 게시물 조회
     public List<PostResponse> findPostAllByTagId(Long id) {

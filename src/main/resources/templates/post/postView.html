@@ -79,15 +79,15 @@
         }
 
     </script>
-    <div id="title">
-        <span th:text="${post.title}"
-              style="width: 100%; font-size: 48px; margin: 10px 0 10px 0;"></span>
-        <button style="color: #db9494;" type="button" class="btns2 white"
-                th:onclick="deletePost([[${post.id}]])">삭제
-        </button>
-        <button style="color: #67adc3;" type="button" class="btns2 white"
-                th:onclick="|location.href='@{/post/{id}/edit(id=${post.id})}'|">수정
-        </button>
+        <p th:text="${post.title}"
+              style="width: 100%; font-size: 48px; margin: 10px 0 10px 0;"></p>
+    <div style="float: right;">
+        <a style="color: #67adc3; padding-right: 5px;"
+           th:onclick="|location.href='@{/post/{id}/edit(id=${post.id})}'|">수정
+        </a>
+        <a style="color: #db9494;"
+           th:onclick="deletePost([[${post.id}]])">삭제
+        </a>
     </div>
     <div style="display: inline-block; padding-top: 4px;">
         <th:block th:each="postTag : ${post.postTags}">
@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <div id="btnDiv">
+    <div class="btnDiv">
         <button type="button" class="btns white" onclick="savePost();">◀︎</button>
         <button type="button" class="btns white" onclick="location.href='/post'">목록으로</button>
         <button type="button" class="btns white" onclick="history.back();">▶︎</button>

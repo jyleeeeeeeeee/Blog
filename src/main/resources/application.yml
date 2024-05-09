@@ -22,10 +22,10 @@ spring:
     #      ddl-auto: none
     properties:
       hibernate:
-        format_sql: true
-        use_sql_comments: true
+########        format_sql: true
+########        use_sql_comments: true
 #        show_sql: true
-logging.level:
-  org.hibernate.SQL: debug
+########logging.level:
+########  org.hibernate.SQL: debug
 #  orm.jdbc.bind: trace #??? ?? 3.x, hibernate6
 # org.hibernate.type: trace

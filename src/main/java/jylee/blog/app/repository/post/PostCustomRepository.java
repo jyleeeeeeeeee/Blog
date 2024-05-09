@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PostCustomRepository {
     Post findPostFetchById(Long id);
-    List<Post> findPostAll();
+    List<Post> findPostAll(Long page, int size, String sort);
     List<Post> findPostAllByTagId(Long id);
 }

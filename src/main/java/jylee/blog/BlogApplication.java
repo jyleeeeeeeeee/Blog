@@ -25,6 +25,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @EnableJpaAuditing
 public class BlogApplication {
+
+    private final EntityManager em;
+    private final TagRepository tagRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(BlogApplication.class, args);
     }
@@ -35,15 +39,10 @@ public class BlogApplication {
         return () -> Optional.of(UUID.randomUUID().toString());
     }
 
-    @Autowired
-    private final EntityManager em;
-    @Autowired
-    private final TagRepository tagRepository;
-
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void init() {
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 999; i++) {
             Post post = new Post(new PostRequest(i + "번 게시글 제목", "<p>저장 테스트입니다.</p><p><br></p><p>ㅋㅋ</p><p><br></p><p>ㄴㅇㄹㅁㄴㅇㄹ</p><p>ㄴㅁㅇㄹㄴㅁㅇㄹ</p><p><br></p><p>ㅁㄴㅇㄹㄴㅁㅇㄹ</p><p><br></p><p><img src=\"/tui-editor/image-print?filename=64eec421-dbf6-487a-a666-474da9ccba4a.jpeg\" alt=\"DSC_1663.jpeg\" contenteditable=\"false\"><br></p><p><br></p><p>ㅁㄴㅇㄹㄴㅁㅇㄹ</p>",
                     new ArrayList<>()));
             em.persist(post);

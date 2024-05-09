@@ -1,42 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="post">
-    <style>
-        a {
-            text-decoration: none;
-            color: black;
-        }
-
-        a:hover {
-            cursor: pointer;
-        }
-
-        .new-tag {
-            cursor: pointer;
-            border-radius: 20px;
-            padding: 4px 8px 4px 8px;
-            border: 2px solid #139dc8;
-            margin-right: 10px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .new-tag:hover {
-            background-color: #139dc8;
-            color: white;
-        }
-
-        #new_post {
-            padding: 5px 10px 5px 10px;
-            color: #67adc3;
-            border: 2px solid #67adc3;
-            border-radius: 20px;
-        }
-        #new_post:hover {
-            background-color: #67adc3;
-            color: white;
-        }
-    </style>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -46,11 +10,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${postList.size} == 0">
+        <tr th:if="${pageInfo.empty}">
             <td colspan="3" style="text-align: center;">데이터가 없습니다.</td>
         </tr>
-        <tr th:if="${postList.size} != 0" th:each="post : ${postList}">
-            <td style="text-align: center; "><span th:text="${postStat.index + 1}"/></td>
+        <tr th:if="${!pageInfo.empty}" th:each="post : ${pageInfo.content}">
+            <td style="text-align: center; "><span th:text="${post.id}"/></td>
             <td colspan="2">
                 <a style="display: inline-block; width: 100%;"
                    th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}"></a>
@@ -64,5 +28,37 @@
         </tr>
         </tbody>
     </table>
+    <div class="btnDiv">
+        <th:block>
+            <a class="paging" th:if="${paging.back != 0}" th:href="@{/post?page={page}(page=${paging.back})}"
+               th:text="'<'"></a>
+            <th:block th:each="pre: ${paging.previous}">
+                <a class="paging page-number" th:href="@{/post?page={page}(page=${pre})}" th:text="${pre}"></a>
+            </th:block>
+            <a class="present paging" th:if="${paging.present != 0}"
+               th:href="@{/post?page={page}(page=${paging.present})}" th:text="${paging.present}"></a>
+            <th:block th:each="aft: ${paging.after}">
+                <a class="paging page-number" th:href="@{/post?page={page}(page=${aft})}" th:text="${aft}"></a>
+            </th:block>
+            <a class="paging" th:if="${paging.forward != 0}" th:href="@{/post?page={page}(page=${paging.forward})}"
+               th:text="'>'"></a>
+        </th:block>
+    </div>
+    <script>
+        $(".page-number")
+            .mouseenter(function () {
+                $(this).stop().animate({
+                    fontSize: "30px"    // CSS fontSize 속성값을 "25px"로 설정함.
+                }, 200, "linear")		// 시간당 속도 함수를 "linear"으로 설정함.
+                    .css("color", "#139dc8");
+
+            })
+            .mouseleave(function () {
+                $(this).stop().animate({
+                    fontSize: "25px"	// CSS width 속성값을 "20px"로 설정함.
+                }, 200, "swing")		// 시간당 속도 함수를 "swing"으로 설정함.
+            .css("color", "gray");
+            });
+    </script>
 </div>
 </html>

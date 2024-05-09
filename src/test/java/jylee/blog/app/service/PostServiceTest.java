@@ -1,5 +1,7 @@
 package jylee.blog.app.service;
 
+import jylee.blog.app.controller.CustomPage;
+import jylee.blog.app.dto.PostResponse;
 import jylee.blog.app.repository.post.PostRepository;
 import jylee.blog.app.repository.post_tag.PostTagRepository;
 import jylee.blog.app.repository.tag.TagRepository;
@@ -15,6 +17,7 @@ import jylee.blog.app.entity.Tag;
 import jylee.blog.app.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +38,7 @@ public class PostServiceTest {
     @Autowired
     private PostTagRepository postTagRepository;
 
-    @InjectMocks
+    @Autowired
     private PostService postService;
 
     @Test
@@ -59,5 +62,18 @@ public class PostServiceTest {
         assertEquals("Updated Content", post.getContent());
         assertEquals(1, post.getPostTags().size());
         assertEquals("updatedTag", post.getPostTags().get(0).getTag().getContent());
+    }
+
+    @Test
+    void countTest() {
+        long count = postRepository.count();
+        System.out.println("count = " + count);
+    }
+
+    @Test
+    void test() {
+        Page<PostResponse> posts = postService.findAllPost(1, 10, "desc");
+        CustomPage page = new CustomPage(posts);
+        System.out.println("allPost = " + posts);
     }
 }

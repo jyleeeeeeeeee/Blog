@@ -19,18 +19,9 @@ public class PostAPIController {
         return postService.savePost(param);
     }
 
-    @GetMapping("/{id}")
-    public PostResponse findById(@PathVariable Long id) {
-        return postService.findById(id);
-    }
-
     @PutMapping
     public Long editPost(@RequestBody PostRequest postRequest) {
         return postService.editPost(postRequest);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
-    }
 }

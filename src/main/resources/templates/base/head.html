@@ -5,6 +5,9 @@
     <title th:text="${title}">BlogHeadTitle</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" href="/css/toastui-editor.min.css"/>
+    <script src="/js/toastui-editor-all.min.js"></script>
+    <script src="/js/jquery-3.7.1.min.js"></script>
     <style>
         .inline-block {
             display: inline-block
@@ -15,6 +18,114 @@
         .nav_td {
             padding: 10px 50px 10px 50px;
             font-size: 25px;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            cursor: pointer;
+        }
+
+        .paging {
+            font-size: 25px;
+            padding : 10px;
+            color: gray;
+        }
+
+        .present {
+            font-size: 30px;
+            color : royalblue;
+        }
+        #title {
+            width: 100%;
+            font-size: 48px;
+            margin: 10px 0 10px 0;
+            border: 2px solid lightgray;
+        }
+
+        .new-tag {
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 4px 8px 4px 8px;
+            border: 2px solid #139dc8;
+            margin-right: 10px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .new-tag:hover {
+            background-color: #139dc8;
+            color: white;
+        }
+        .manual-text {
+            margin: 5px 10px 5px 10px;
+            font-size: 12px;
+        }
+
+        #new_post {
+            padding: 5px 10px 5px 10px;
+            color: #67adc3;
+            border: 2px solid #67adc3;
+            border-radius: 20px;
+        }
+        #new_post:hover {
+            background-color: #67adc3;
+            color: white;
+        }
+
+        .btnDiv {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btns {
+            display: inline-block;
+            padding: 0 10px;
+            height: 48px;
+            line-height: 26px;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            font-weight: 500;
+            font-size: 24px;
+        }
+
+        .btns2 {
+            display: inline-block;
+            padding: 48px 5px 0 5px;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            font-weight: 500;
+            float: right;
+            background-color: white;
+        }
+
+        .white {
+            background: #fff;
+            color: #67adc3;
+        }
+
+        p {
+            word-break: break-all
+        }
+
+        img {
+            width: -webkit-fill-available
+        }
+
+
+        .btns.save {
+            background: #139dc8;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btns.back {
+            background: #fff;
+            border: 1px solid #67adc3;
+            color: #67adc3;
         }
     </style>
 </head>

@@ -45,9 +45,6 @@
     </div>
 
     <div class="btnDiv">
-<!--        <span th:text="${url}"></span>-->
-<!--        <span th:text="${post.prevId}"></span>-->
-<!--        <span th:text="${post.nextId}"></span>-->
         <button th:if="${post.nextId != null}" class="btns white change-post" th:onclick="|location.href='@{{url}/{id}(url=${url}, id=${post.nextId})}'|">◀︎ 이전 글 보기</button>
         <button th:if="${post.prevId != null}" class="btns white change-post" th:onclick="|location.href='@{{url}/{id}(url=${url}, id=${post.prevId})}'|">다음 글 보기▶</button>
     </div>

@@ -5,6 +5,7 @@ import jylee.blog.app.dto.PostResponse;
 import jylee.blog.app.repository.post.PostRepository;
 import jylee.blog.app.repository.post_tag.PostTagRepository;
 import jylee.blog.app.repository.tag.TagRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -72,8 +73,14 @@ public class PostServiceTest {
 
     @Test
     void test() {
-        Page<PostResponse> posts = postService.findAllPost(1, 10, "desc");
-        CustomPage page = new CustomPage(posts);
-        System.out.println("allPost = " + posts);
+//        Page<PostResponse> posts = postService.findAllPost(1, 10, "desc");
+//        CustomPage page = new CustomPage(posts);
+//        System.out.println("allPost = " + posts);
+
+//        PostResponse postResponse = postService.findById(98L);
+        List<Post> top2ByOrderByIdDesc = postRepository.findTop2ByOrderByIdDesc();
+
+        System.out.println("top2ByOrderByIdDesc = " + top2ByOrderByIdDesc);
+//        Assertions.assertThat(postResponse.getId()).isEqualTo(findFirstByOrderByIdDesc.getId());
     }
 }

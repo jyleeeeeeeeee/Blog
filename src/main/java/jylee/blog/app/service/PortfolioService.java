@@ -31,7 +31,7 @@ public class PortfolioService {
     }
 
     // 게시물 모두 조회
-    public List<PostResponse> findAllPost() {
+    public List<PostResponse> findPostAll() {
         return repository.findAll().stream().map(PostResponse::new).collect(Collectors.toList());
     }
 }

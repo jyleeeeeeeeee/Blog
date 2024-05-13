@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jylee.blog.app.repository.mybatis.Mapper">
+    <select id="countByKeyword" resultType="_long">
+        select distinct p1_0.post_id
+        from post p1_0
+                 join post_tag p2_0 on p1_0.post_id = p2_0.post_id
+                 join tag t1_0 on t1_0.tag_id = p2_0.tag_id
+        where p1_0.title like concat('%', #{keyword}, '%') escape '!' or t1_0.content = concat('%', #{keyword}, '%')
+    </select>
+
+    <select id="postView" resultType="jylee.blog.app.dto.PostView">
+        select p2.prev_id, p.*, n.next_id
+        from POST as p,
+        (select post_id next_id from POST where post_id gt 5 limit 1) as n,
+        (select post_id prev_id from POST where post_id lt #{id} order by post_id desc limit 1) as p2
+        where p.POST_ID = #{id};
+    </select>
+</mapper>

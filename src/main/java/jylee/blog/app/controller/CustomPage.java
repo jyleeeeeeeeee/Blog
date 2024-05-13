@@ -13,7 +13,7 @@ public class CustomPage {
     private final List<PostResponse> content;
     private final Pageable pageable;
     private final boolean last;
-    private final long totalElementes;
+    private final long totalElements;
     private final int totalPages;
     private final int size;
     private final int number;
@@ -26,7 +26,7 @@ public class CustomPage {
         content = page.getContent();
         pageable = page.getPageable();
         last = page.isLast();
-        totalElementes = page.getTotalElements();
+        totalElements = page.getTotalElements();
         totalPages = page.getTotalPages();
         size = page.getSize();
         number = page.getNumber() + 1;

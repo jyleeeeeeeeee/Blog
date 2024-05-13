@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.querydsl.jpa.JPAExpressions.select;
+import static jylee.blog.app.entity.QPost.post;
 import static jylee.blog.app.entity.QPostTag.postTag;
+import static jylee.blog.app.entity.QTag.tag;
 
 @Repository
 public class PostTagCustomRepositoryImpl implements PostTagCustomRepository {
@@ -35,10 +37,32 @@ public class PostTagCustomRepositoryImpl implements PostTagCustomRepository {
 
     @Override
     public Long deleteByPostId(Long id) {
-        long execute = query.delete(postTag)
+        long execute = query
+                .delete(postTag)
                 .where(postTag.post.id.eq(id)).execute();
         em.clear();
 
         return execute;
     }
+
+    @Override
+    public Long countByTagId(Long id) {
+        return query
+                .select(postTag.count())
+                .from(postTag)
+                .where(postTag.tag.id.eq(id)).fetchFirst();
+    }
+
+    @Override
+    public Long countByKeyword(String keyword) {
+        return query
+                .select(post.count())
+                .from(post)
+                .join(post.postTags, postTag).fetchJoin()
+                .join(postTag.tag, tag).fetchJoin()
+                .where(post.title.like(keyword).or(tag.content.eq(keyword)))
+                .fetchFirst();
+    }
+
+
 }

@@ -1,13 +1,14 @@
 package jylee.blog.app.controller;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
-@Data @AllArgsConstructor
+@Data @RequiredArgsConstructor
 public class Paging {
-    private int back;
-    private int[] previous;
-    private int present;
-    private int[] after;
-    private int forward;
+    private final long back;
+    private final long[] previous;
+    private final long present;
+    private final long[] after;
+    private final long forward;
+    private final String url;
 }

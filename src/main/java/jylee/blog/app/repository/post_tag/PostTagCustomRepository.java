@@ -7,4 +7,6 @@ import java.util.List;
 public interface PostTagCustomRepository {
     List<PostTag> findByPostId(Long id);
     Long deleteByPostId(Long id);
+    Long countByTagId(Long id);
+    Long countByKeyword(String keyword);
 }

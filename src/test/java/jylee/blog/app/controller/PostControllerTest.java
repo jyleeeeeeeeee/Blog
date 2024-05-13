@@ -97,7 +97,7 @@ class PostControllerTest {
             }
         }
 
-        return new Paging(back, previous, present, after, forward);
+        return new Paging(back, new long[0], present, new long[0], forward, "urlStr");
     }
 
     public String print(Paging pageData){

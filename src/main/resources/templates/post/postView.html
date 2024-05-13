@@ -6,63 +6,6 @@
 </head>
 <body>
 <div id="post_wrapper" th:fragment="post_wrapper">
-    <style>
-
-        #btnDiv {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .btns {
-            display: inline-block;
-            padding: 0 10px;
-            height: 48px;
-            line-height: 26px;
-            text-align: center;
-            vertical-align: middle;
-            border-radius: 3px;
-            border: 1px solid transparent;
-            font-weight: 500;
-            font-size: 24px;
-        }
-
-        .btns2 {
-            display: inline-block;
-            padding: 48px 5px 0 5px;
-            border-radius: 3px;
-            border: 1px solid transparent;
-            font-weight: 500;
-            float: right;
-            background-color: white;
-        }
-
-        .white {
-            background: #fff;
-            color: #67adc3;
-        }
-
-        p {
-            word-break: break-all
-        }
-
-        img {
-            width: -webkit-fill-available
-        }
-
-        .new-tag {
-            cursor: pointer;
-            border-radius: 20px;
-            padding: 4px 8px 4px 8px;
-            border: 2px solid #139dc8;
-            margin-right: 10px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        .new-tag:hover {
-            background-color: #139dc8;
-            color: white;
-        }
-    </style>
     <script>
         async function deletePost(id) {
             if (confirm("삭제하시겠습니까?")) {
@@ -91,7 +34,8 @@
     </div>
     <div style="display: inline-block; padding-top: 4px;">
         <th:block th:each="postTag : ${post.postTags}">
-            <span class="new-tag" th:text="${postTag.tag.content}"></span>
+            <span class="new-tag" th:text="${postTag.tag.content}"
+                  th:onclick="|location.href='@{/post/tag/{id}(id=${postTag.tag.id})}'|"></span>
         </th:block>
     </div>
     <hr>
@@ -101,9 +45,11 @@
     </div>
 
     <div class="btnDiv">
-        <button type="button" class="btns white" onclick="savePost();">◀︎</button>
-        <button type="button" class="btns white" onclick="location.href='/post'">목록으로</button>
-        <button type="button" class="btns white" onclick="history.back();">▶︎</button>
+<!--        <span th:text="${url}"></span>-->
+<!--        <span th:text="${post.prevId}"></span>-->
+<!--        <span th:text="${post.nextId}"></span>-->
+        <button th:if="${post.nextId != null}" class="btns white change-post" th:onclick="|location.href='@{{url}/{id}(url=${url}, id=${post.nextId})}'|">◀︎ 이전 글 보기</button>
+        <button th:if="${post.prevId != null}" class="btns white change-post" th:onclick="|location.href='@{{url}/{id}(url=${url}, id=${post.prevId})}'|">다음 글 보기▶</button>
     </div>
 </div>
 </body>

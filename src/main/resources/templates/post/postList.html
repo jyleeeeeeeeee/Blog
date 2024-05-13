@@ -30,17 +30,19 @@
     </table>
     <div class="btnDiv">
         <th:block>
-            <a class="paging" th:if="${paging.back != 0}" th:href="@{/post?page={page}(page=${paging.back})}"
+            <a class="paging" th:if="${paging.back != 0}"
+               th:href="@{{url}?page={page}(url=${paging.url}, page=${paging.back})}"
                th:text="'<'"></a>
             <th:block th:each="pre: ${paging.previous}">
-                <a class="paging page-number" th:href="@{/post?page={page}(page=${pre})}" th:text="${pre}"></a>
+                <a class="paging page-number" 
+                   th:href="@{{url}?page={page}(url=${paging.url}, page=${pre})}" th:text="${pre}"></a>
             </th:block>
             <a class="present paging" th:if="${paging.present != 0}"
-               th:href="@{/post?page={page}(page=${paging.present})}" th:text="${paging.present}"></a>
+               th:href="@{{url}?page={page}(url=${paging.url}, page=${paging.present})}" th:text="${paging.present}"></a>
             <th:block th:each="aft: ${paging.after}">
-                <a class="paging page-number" th:href="@{/post?page={page}(page=${aft})}" th:text="${aft}"></a>
+                <a class="paging page-number" th:href="@{{url}?page={page}(url=${paging.url}, page=${aft})}" th:text="${aft}"></a>
             </th:block>
-            <a class="paging" th:if="${paging.forward != 0}" th:href="@{/post?page={page}(page=${paging.forward})}"
+            <a class="paging" th:if="${paging.forward != 0}" th:href="@{{url}?page={page}(url=${paging.url}, page=${paging.forward})}"
                th:text="'>'"></a>
         </th:block>
     </div>

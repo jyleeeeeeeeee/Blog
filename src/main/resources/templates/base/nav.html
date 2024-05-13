@@ -10,11 +10,26 @@
             text-decoration: none; color: gray;
         }
     </style>
+    <script>
+        $("#search").keyup(function () {
+            var search = $("#search").val();
+            $.ajax({
+                url: "/search",
+                type: "get",
+                data: {
+                    search: search
+                },
+                success: function (data) {
+                    $("#result").html(data);
+                }
+            });
+        });
+    </script>
     <table>
         <tr style="font-size: 25px; padding: 0 50px 0 50px;">
             <td class="nav_td" style="font-size: 15px; display: flex;">
-                <label for="search"></label><input type="text" id="search" placeholder="태그 검색">
-                <button style="border:0; background-color: white;" type="button">
+                <label for="search"></label><input type="text" id="search-input" placeholder="검색어를 입력하세요">
+                <button style="border:0; background-color: white;" type="button" id="search">
                     <img src="/image/search.png" alt=""style="width: 30px; height: 30px;">
                 </button>
             </td>

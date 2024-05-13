@@ -27,7 +27,6 @@ public class Post extends BaseEntity{
     @OneToMany(mappedBy = "post")//, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostTag> postTags = new ArrayList<>();
 
-
     public Post(PostRequest postRequest) {
         this.title = postRequest.getTitle();
         this.content = postRequest.getContent();

@@ -41,14 +41,14 @@ public class PostService {
 
     // 게시물 단건 조회
     public PostResponse findById(Long id) {
-        Post post = postRepository.findPostFetchById(id);
-        return new PostResponse(post);
+        return new PostResponse(postRepository.findPostFetchById(id))
+                .setPrevId(postRepository.findPrevPostId(id))
+                .setNextId(postRepository.findNextPostId(id));
     }
 
     // 게시물 모두 조회
     public Page<PostResponse> findAllPost(int page, int size, String sort) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size,
-                Sort.by(Sort.Direction.fromString(sort), "id"));
+        PageRequest pageRequest = getPageRequest(page, size, sort);
         long offset = pageRequest.getOffset();
 
         List<PostResponse> posts = postRepository.findPostAll(offset, size, sort).stream().map(PostResponse::new).collect(Collectors.toList());
@@ -56,15 +56,24 @@ public class PostService {
         return new PageImpl<>(posts, pageRequest, count);
     }
 
-    // 게시물 모두 조회
-//    public Page<PostResponse> findAllPostPaging(PageRequest pageRequest) {
-//        List<PostResponse> collect = postRepository.findPostAll(pageRequest).stream().map(PostResponse::new).collect(Collectors.toList());
-//        return collect;
-//    }
-
     // 태그로 게시물 조회
-    public List<PostResponse> findPostAllByTagId(Long id) {
-        return postRepository.findPostAllByTagId(id).stream().map(PostResponse::new).collect(Collectors.toList());
+    public Page<PostResponse> findPostAllByTagId(int page, int size, String sort, Long id) {
+        PageRequest pageRequest = getPageRequest(page, size, sort);
+        long offset = pageRequest.getOffset();
+
+        List<PostResponse> posts = postRepository.findPostAllByTagId(offset, size, sort, id).stream().map(PostResponse::new).collect(Collectors.toList());
+        long count = postTagRepository.countByTagId(id);
+        return new PageImpl<>(posts, pageRequest, count);
+    }
+
+    // 키워드로 게시물 조회
+    public Page<PostResponse> findPostByKeyword(int page, int size, String sort, String keyword) {
+        PageRequest pageRequest = getPageRequest(page, size, sort);
+        long offset = pageRequest.getOffset();
+
+        List<PostResponse> posts = postRepository.findPostByKeyword(offset, size, sort, keyword).stream().map(PostResponse::new).collect(Collectors.toList());
+        long count = postTagRepository.countByKeyword(keyword);
+        return new PageImpl<>(posts, pageRequest, count);
     }
 
     // 게시물 수정
@@ -83,6 +92,13 @@ public class PostService {
         // 태그 생성, 등록
         createAndAddTags(postRequest.getTags(), post);
         return postId;
+    }
+
+
+
+    @Transactional
+    public void deletePost(Long id) {
+        postRepository.delete(postRepository.findById(id).orElseThrow());
     }
 
     private void createAndAddTags(List<Tag> tags, Post post) {
@@ -104,8 +120,8 @@ public class PostService {
         });
     }
 
-    @Transactional
-    public void deletePost(Long id) {
-        postRepository.delete(postRepository.findById(id).orElseThrow());
+
+    private PageRequest getPageRequest(int page, int size, String sort) {
+        return PageRequest.of(page - 1, size, Sort.by(Sort.Direction.fromString(sort), "id"));
     }
 }
